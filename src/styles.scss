@@ -15,9 +15,103 @@ html {
     overflow-x: hidden;
 }
 
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    align-content:center;
+}
+
 
 h1 {
     font-family: "Montserrat", Arial;
     font-size: 10rem;
     text-align: center;
+}
+
+#calculator {
+    display: grid;
+    grid-template-rows: 10rem 10rem 10rem 10rem 10rem 10rem;
+    grid-template-columns: 10rem 10rem 10rem 10rem;
+    grid-template-areas:
+    "Ds Ds Ds Ds"
+    "C C D M"
+    "Sev Eig Nin S"
+    "Fou Fiv Six Add"
+    "One Two Thr Equ"
+    "Zer Zer Dec Equ"
+}
+
+#display {
+    grid-area: Ds;
+    font-size: 5rem;
+}
+
+#clear {
+    grid-area: C;
+}
+
+#divide {
+    grid-area: D;
+}
+
+#multiply {
+    grid-area: M;
+}
+
+#seven {
+    grid-area: Sev;
+}
+
+#eight {
+    grid-area: Eig;
+}
+
+#nine {
+    grid-area: Nin;
+}
+
+#subtract {
+    grid-area: S;
+}
+
+#four {
+    grid-area: Fou;
+}
+
+#five {
+    grid-area: Fiv;
+}
+
+#six {
+    grid-area: Six;
+}
+
+#add {
+    grid-area: Add;
+}
+
+#one {
+    grid-area: One;
+}
+
+#two {
+    grid-area: Two;
+}
+
+#three {
+    grid-area: Thr;
+}
+
+#equals {
+    grid-area: Equ;
+}
+
+#zero {
+    grid-area: Zer;
+}
+
+#decimal {
+    grid-area: Dec;
 }
