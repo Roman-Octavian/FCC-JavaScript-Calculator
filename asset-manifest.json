@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/FCC-JavaScript-Calculator/static/css/main.78ad9659.css",
-    "main.js": "/FCC-JavaScript-Calculator/static/js/main.2c732ff5.js",
+    "main.css": "/FCC-JavaScript-Calculator/static/css/main.a7b6d9fa.css",
+    "main.js": "/FCC-JavaScript-Calculator/static/js/main.35a0f2f1.js",
     "index.html": "/FCC-JavaScript-Calculator/index.html",
-    "main.78ad9659.css.map": "/FCC-JavaScript-Calculator/static/css/main.78ad9659.css.map",
-    "main.2c732ff5.js.map": "/FCC-JavaScript-Calculator/static/js/main.2c732ff5.js.map"
+    "main.a7b6d9fa.css.map": "/FCC-JavaScript-Calculator/static/css/main.a7b6d9fa.css.map",
+    "main.35a0f2f1.js.map": "/FCC-JavaScript-Calculator/static/js/main.35a0f2f1.js.map"
   },
   "entrypoints": [
-    "static/css/main.78ad9659.css",
-    "static/js/main.2c732ff5.js"
+    "static/css/main.a7b6d9fa.css",
+    "static/js/main.35a0f2f1.js"
   ]
 }
