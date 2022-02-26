@@ -35,39 +35,117 @@ class Calculator extends React.Component {
     input(i) {
         if (!isNaN(i) && memory.length !== 0 && !isNaN(memory[memory.length - 1])) {
             let j = memory.pop();
-            memory.push("" + j + i);
-        } else {
+            memory.push(("" + j + i) * 1);
+        } else if (i == '.' && memory.length !== 0) {
+            let k = memory[memory.length - 1].toString().charAt(memory[memory.length - 1].length - 1);
+            if (k != i) {
+                let j = memory.pop();
+                memory.push(("" + j + i));
+            }
+        } 
+        else {
+            if(i != ".") {
             memory.push(i);
+            }
         }
         this.updateDisplay();
     }
 
     compute() {
-        for (let i = 0; i < memory.length; i++) {
-            if(isNaN(memory[i])) {
+        let k = 0;
+        while (memory.length > 1) {
+            for (let i = 0; i < memory.length; i++) {
+                if (!isNaN(memory[i + 1])) {
                 switch(memory[i]) {
                     case "+":
-                        this.setState({
-                            input: parseInt(memory[i - 1]) + parseInt(memory[i + 1])
-                        });
+                        while (true) {
+                            if (memory[i - 1] !== undefined) {
+                                k = (memory[i - 1]) + (memory[i + 1]);
+                                break;
+                            }
+                            else {
+                                memory.unshift(0);
+                                i += 1;
+                            }
+                        }
+                        memory.splice(i - 1, 3, k);
+                        k = 0;
+                        this.updateDisplay();
+                        i = 0;
                         break;
                     case "-":
-                        this.setState({
-                            input: parseInt(memory[i - 1]) - parseInt(memory[i + 1])
-                        });
+                        while (true) {
+                            if (memory[i - 1] !== undefined) {
+                                k = (memory[i - 1]) - (memory[i + 1]);
+                                break;
+                            }
+                            else {
+                                memory.unshift(0);
+                                i += 1;
+                            }
+                        }
+                        memory.splice(i - 1, 3, k);
+                        k = 0;
+                        this.updateDisplay();
+                        i = 0
                         break;
                     case "*":
-                        this.setState({
-                            input: parseInt(memory[i - 1]) * parseInt(memory[i + 1])
-                        });
+                        while (true) {
+                            if (memory[i - 1] !== undefined) {
+                                k = (memory[i - 1]) * (memory[i + 1]);
+                                break;
+                            }
+                            else {
+                                memory.unshift(0);
+                                i += 1;
+                            }
+                        }
+                        memory.splice(i - 1, 3, k);
+                        k = 0;
+                        this.updateDisplay();
+                        i = 0;
                         break;
                     case "/":
-                        this.setState({
-                            input: parseInt(memory[i - 1]) / parseInt(memory[i + 1])
-                        });
+                        while (true) {
+                            if (memory[i - 1] !== undefined) {
+                                k = (memory[i - 1]) / (memory[i + 1]);
+                                break;
+                            }
+                            else {
+                                memory.unshift(0);
+                                i += 1;
+                            }
+                        }
+                        memory.splice(i - 1, 3, k);
+                        k = 0;
+                        this.updateDisplay();
+                        i = 0;
+                        break;
+                    case ".":
+                        while (true) {
+                            let i = 0;
+                            if (i + 1 == '.') {
+                                memory.splice(i, 1);
+                            }
+                            else {
+                                break;
+                            }
+                        }
                         break;
                     default:
+
                         break;
+                    }
+                }
+                else if (isNaN(memory[i]) && isNaN(memory[i + 1])) {
+                    if (!isNaN(memory[i + 2] && memory[i + 1] == '-')) {
+                        memory[i + 2] = -Math.abs(memory[i + 2]);
+                        memory.splice(i + 1, 1);
+                    }
+                    else {
+                    memory.splice(i, 1);
+                    }
+                    i = 0;
                 }
             }
         }
