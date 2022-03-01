@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 :root {
     font-size: 62.5%;
@@ -8,6 +9,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Orbitron", Arial;
 }
 
 html {
@@ -26,92 +28,116 @@ html {
 
 h1 {
     font-family: "Montserrat", Arial;
-    font-size: 10rem;
     text-align: center;
 }
 
 #calculator {
     display: grid;
-    grid-template-rows: 10rem 10rem 10rem 10rem 10rem 10rem;
+    grid-template-rows: 3rem 7rem 10rem 10rem 10rem 10rem 10rem;
     grid-template-columns: 10rem 10rem 10rem 10rem;
     grid-template-areas:
+    "Ans Ans Ans Ans"
     "Ds Ds Ds Ds"
-    "C C D M"
-    "Sev Eig Nin S"
-    "Fou Fiv Six Add"
+    "Add S M D"
+    "Sev Eig Nin C"
+    "Fou Fiv Six C"
     "One Two Thr Equ"
     "Zer Zer Dec Equ"
 }
 
+#ans {
+    grid-area: Ans;
+    font-size: 2rem;
+    text-align: end;
+}
+
 #display {
     grid-area: Ds;
-    font-size: 5rem;
+    font-size: 4rem;
+    text-align: end;
 }
 
 #clear {
     grid-area: C;
+    font-size: 2rem;
 }
 
 #divide {
     grid-area: D;
+    font-size: 2rem;
 }
 
 #multiply {
     grid-area: M;
+    font-size: 2rem;
 }
 
 #seven {
     grid-area: Sev;
+    font-size: 2rem;
 }
 
 #eight {
     grid-area: Eig;
+    font-size: 2rem;
 }
 
 #nine {
     grid-area: Nin;
+    font-size: 2rem;
 }
 
 #subtract {
     grid-area: S;
+    font-size: 2rem;
 }
 
 #four {
     grid-area: Fou;
+    font-size: 2rem;
 }
 
 #five {
     grid-area: Fiv;
+    font-size: 2rem;
 }
 
 #six {
     grid-area: Six;
+    font-size: 2rem;
 }
 
 #add {
     grid-area: Add;
+    font-size: 2rem;
 }
 
 #one {
     grid-area: One;
+    font-size: 2rem;
 }
 
 #two {
     grid-area: Two;
+    font-size: 2rem;
 }
 
 #three {
     grid-area: Thr;
+    font-size: 2rem;
 }
 
 #equals {
     grid-area: Equ;
+    font-size: 2rem;
 }
 
 #zero {
     grid-area: Zer;
+    font-size: 2rem;
 }
 
 #decimal {
     grid-area: Dec;
+    font-size: 2rem;
 }

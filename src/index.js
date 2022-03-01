@@ -9,13 +9,195 @@ class Calculator extends React.Component {
         super(props);
         this.state = {
             input: 0,
-            output: 0,
-            memory: []
+            ans: null,
         }
+        this.keyPressToButton = this.keyPressToButton.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.clear = this.clear.bind(this);
         this.input = this.input.bind(this);
         this.updateDisplay = this.updateDisplay.bind(this);
+        this.updateAns = this.updateAns.bind(this);
         this.compute = this.compute.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyPress);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress);
+    }
+
+    keyPressToButton(key) {
+        document.getElementById(key).click();
+    }
+
+    /* Danish Keyboard support including numpad */
+    handleKeyPress(event) {
+        switch (event.keyCode) {
+            case 13: 
+                event.preventDefault();
+                this.keyPressToButton("equals");
+                break;
+
+            case 48: 
+                event.preventDefault();
+                this.keyPressToButton("zero");
+                break;
+
+            case 96: 
+                event.preventDefault();
+                this.keyPressToButton("zero");
+                break;
+
+            case 49: 
+                event.preventDefault();
+                this.keyPressToButton("one");
+                break;
+            
+            case 97: 
+                event.preventDefault();
+                this.keyPressToButton("one");
+                break;
+
+            case 50:
+                event.preventDefault();
+                this.keyPressToButton("two");
+                break;
+
+            case 98:
+                event.preventDefault();
+                this.keyPressToButton("two");
+                break;
+
+            case 51:
+                event.preventDefault();
+                this.keyPressToButton("three");
+                break;
+
+            case 99:
+                event.preventDefault();
+                this.keyPressToButton("three");
+                break;
+
+            case 52:
+                event.preventDefault();
+                this.keyPressToButton("four");
+                break;
+
+            case 100:
+                event.preventDefault();
+                this.keyPressToButton("four");
+                break;
+
+            case 53:
+                event.preventDefault();
+                this.keyPressToButton("five");
+                break;
+
+            case 101:
+                event.preventDefault();
+                this.keyPressToButton("five");
+                break;
+    
+            case 54:
+                event.preventDefault();
+                this.keyPressToButton("six");
+                break;
+
+            case 102:
+                event.preventDefault();
+                this.keyPressToButton("six");
+                break;
+
+            case 55:
+                event.preventDefault();
+                this.keyPressToButton("seven");
+                break;
+
+            case 103:
+                event.preventDefault();
+                this.keyPressToButton("seven");
+                break;
+
+            case 56:
+                event.preventDefault();
+                this.keyPressToButton("eight");
+                break;
+
+            case 104:
+                event.preventDefault();
+                this.keyPressToButton("eight");
+                break;
+
+            case 57:
+                event.preventDefault();
+                this.keyPressToButton("nine");
+                break;
+
+            case 105:
+                event.preventDefault();
+                this.keyPressToButton("nine");
+                break;
+                
+            case 107:
+                event.preventDefault();
+                this.keyPressToButton("add");
+                break;
+
+            case 171:
+                event.preventDefault();
+                this.keyPressToButton("add");
+                break;
+
+            case 173:
+                event.preventDefault();
+                this.keyPressToButton("subtract");
+                break;
+
+            case 109:
+                event.preventDefault();
+                this.keyPressToButton("subtract");
+                break;
+
+            case 106:
+                event.preventDefault();
+                this.keyPressToButton("multiply");
+                break;
+
+            case 222:
+                event.preventDefault();
+                this.keyPressToButton("multiply");
+                break;
+
+            case 111:
+                event.preventDefault();
+                this.keyPressToButton("divide");
+                break;
+
+            case 110:
+                event.preventDefault();
+                this.keyPressToButton("decimal");
+                break;
+
+            case 190:
+                event.preventDefault();
+                this.keyPressToButton("decimal");
+                break;
+
+            case 8:
+                event.preventDefault();
+                this.keyPressToButton("clear");
+                break;
+
+            case 46:
+                event.preventDefault();
+                this.keyPressToButton("clear");
+                break;
+
+            default:
+                break;
+        }
     }
 
     /* Resets the calculator */
@@ -23,7 +205,7 @@ class Calculator extends React.Component {
         memory = [];
         this.setState({
             input: 0,
-            output: 0
+            ans: null
         });
     }
 
@@ -33,13 +215,21 @@ class Calculator extends React.Component {
             input: memory.join("")
         });
     }
+    /* Updates the number above the main display which shows the last operation performed */
+    updateAns() {
+        this.setState({
+            ans: memory.join("")
+        });
+    }
 
     /* Takes input from all the buttons */
     input(i) {
         /* Handles input if we are inserting digits. Concatenates with previous integer, if any */
-        if (!isNaN(i) && memory.length !== 0 && !isNaN(memory[memory.length - 1]) && memory[memory.length - 1] !== 0) {
+        if (!isNaN(i) && memory.length !== 0 && !isNaN(memory[memory.length - 1])) {
             let j = memory.pop();
-            memory.push(("" + j + i));
+            if (j + i != '00') {
+                memory.push(("" + j + i));
+            }
         }
         /* Handles decimal symbol input; failsafes in place to avoid syntax errors */
         else if (i == '.') {
@@ -78,6 +268,7 @@ class Calculator extends React.Component {
     Subtraction operators behave differently because they can be used for negative numbers.
     */
     compute() {
+        this.updateAns();
         let k = 0;
         while (memory.length > 1) {
             for (let i = 0; i < memory.length; i++) {
@@ -118,7 +309,7 @@ class Calculator extends React.Component {
                     case "*":
                         while (true) {
                             if (memory[i - 1] !== undefined) {
-                                k = parseFloat((memory[i - 1]) * parseFloat((memory[i + 1])));
+                                k = ((parseFloat((memory[i - 1])) * 10) * (parseFloat((memory[i + 1])) * 10)) / 100;
                                 break;
                             }
                             else {
@@ -168,6 +359,9 @@ class Calculator extends React.Component {
     render() {
         return (
             <div id="calculator">
+                <div id="ans">
+                    <p>{this.state.ans}</p>
+                </div>
                 <div id="display">
                     <p>{this.state.input}</p>
                 </div>
@@ -186,8 +380,8 @@ class Calculator extends React.Component {
 
                     <button id="add" onClick={() => {this.input("+")}}>+</button>
                     <button id="subtract" onClick={() => {this.input("-")}}>-</button>
-                    <button id="multiply" onClick={() => {this.input("*")}}>*</button>
-                    <button id="divide" onClick={() => {this.input("/")}}>/</button>
+                    <button id="multiply" onClick={() => {this.input("*")}}>x</button>
+                    <button id="divide" onClick={() => {this.input("/")}}>&#247;</button>
 
                     <button id="decimal" onClick={() => {this.input(".")}}>.</button>
                     
