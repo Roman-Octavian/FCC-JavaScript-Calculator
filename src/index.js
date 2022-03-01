@@ -366,7 +366,6 @@ class Calculator extends React.Component {
                     <p>{this.state.input}</p>
                 </div>
                     <button id="equals" onClick={this.compute}>=</button>
-
                     <button id="zero" onClick={() => {this.input(0)}}>0</button>
                     <button id="one" onClick={() => {this.input(1)}}>1</button>
                     <button id="two" onClick={() => {this.input(2)}}>2</button>
@@ -377,15 +376,12 @@ class Calculator extends React.Component {
                     <button id="seven" onClick={() => {this.input(7)}}>7</button>
                     <button id="eight" onClick={() => {this.input(8)}}>8</button>
                     <button id="nine" onClick={() => {this.input(9)}}>9</button>
-
                     <button id="add" onClick={() => {this.input("+")}}>+</button>
                     <button id="subtract" onClick={() => {this.input("-")}}>-</button>
                     <button id="multiply" onClick={() => {this.input("*")}}>x</button>
                     <button id="divide" onClick={() => {this.input("/")}}>&#247;</button>
-
                     <button id="decimal" onClick={() => {this.input(".")}}>.</button>
-                    
-                    <button id="clear" onClick={this.clear}>C</button>
+                    <button id="clear" onClick={this.clear}>AC</button>
             </div>
         )
     }

@@ -25,15 +25,13 @@ html {
     align-content:center;
 }
 
-
-h1 {
-    font-family: "Montserrat", Arial;
-    text-align: center;
-}
-
 #calculator {
     display: grid;
-    grid-template-rows: 3rem 7rem 10rem 10rem 10rem 10rem 10rem;
+    background-color: #1e1e1e;
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+    border-radius: 8px;
+    border: 2px solid darkgray;
+    grid-template-rows: 2rem 5.5rem 10rem 10rem 10rem 10rem 10rem;
     grid-template-columns: 10rem 10rem 10rem 10rem;
     grid-template-areas:
     "Ans Ans Ans Ans"
@@ -49,12 +47,14 @@ h1 {
     grid-area: Ans;
     font-size: 2rem;
     text-align: end;
+    color: orange;
 }
 
 #display {
     grid-area: Ds;
     font-size: 4rem;
     text-align: end;
+    color: green;
 }
 
 #clear {
