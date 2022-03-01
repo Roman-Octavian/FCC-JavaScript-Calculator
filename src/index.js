@@ -18,6 +18,7 @@ class Calculator extends React.Component {
         this.compute = this.compute.bind(this);
     }
 
+    /* Resets the calculator */
     clear() {
         memory = [];
         this.setState({
@@ -26,31 +27,56 @@ class Calculator extends React.Component {
         });
     }
 
+    /* Updates the state of the React component to display calculations */
     updateDisplay() {
         this.setState({
             input: memory.join("")
         });
     }
 
+    /* Takes input from all the buttons */
     input(i) {
-        if (!isNaN(i) && memory.length !== 0 && !isNaN(memory[memory.length - 1])) {
+        /* Handles input if we are inserting digits. Concatenates with previous integer, if any */
+        if (!isNaN(i) && memory.length !== 0 && !isNaN(memory[memory.length - 1]) && memory[memory.length - 1] !== 0) {
             let j = memory.pop();
-            memory.push(("" + j + i) * 1);
-        } else if (i == '.' && memory.length !== 0) {
-            let k = memory[memory.length - 1].toString().charAt(memory[memory.length - 1].length - 1);
-            if (k != i) {
+            memory.push(("" + j + i));
+        }
+        /* Handles decimal symbol input; failsafes in place to avoid syntax errors */
+        else if (i == '.') {
+            let repeated = false;
+            if (memory.length === 0) {
+                memory.push(0);
+            }
+            for (let j = 0; j < memory[memory.length - 1].length; j++) {
+                if (memory[memory.length - 1].toString().charAt(j) === i) {
+                    repeated = true;
+                }
+            }
+            if (!repeated && !isNaN(memory[memory.length - 1])) {
                 let j = memory.pop();
                 memory.push(("" + j + i));
             }
-        } 
+        }
+        /* Handles everything else, mostly operators */
         else {
             if(i != ".") {
+                if(!(memory[memory.length - 1] == 0 && i == 0)) {
             memory.push(i);
+                }
             }
         }
         this.updateDisplay();
     }
 
+    /*
+    Monstrosity of a function that computes the values stored in the array "memory".
+    The main loop cycles until there is only a single value in memory.
+    It tries to operate between two numbers in the switch statement.
+    If multiple operators clash, it only takes into account the one next to the second number.
+    Not my personal choice, user stories dictate how this should work, personally I would have
+    made illegal operators to return "Syntax Error".
+    Subtraction operators behave differently because they can be used for negative numbers.
+    */
     compute() {
         let k = 0;
         while (memory.length > 1) {
@@ -60,7 +86,7 @@ class Calculator extends React.Component {
                     case "+":
                         while (true) {
                             if (memory[i - 1] !== undefined) {
-                                k = (memory[i - 1]) + (memory[i + 1]);
+                                k = parseFloat((memory[i - 1])) + parseFloat((memory[i + 1]));
                                 break;
                             }
                             else {
@@ -76,7 +102,7 @@ class Calculator extends React.Component {
                     case "-":
                         while (true) {
                             if (memory[i - 1] !== undefined) {
-                                k = (memory[i - 1]) - (memory[i + 1]);
+                                k = parseFloat((memory[i - 1])) - parseFloat((memory[i + 1]));
                                 break;
                             }
                             else {
@@ -92,7 +118,7 @@ class Calculator extends React.Component {
                     case "*":
                         while (true) {
                             if (memory[i - 1] !== undefined) {
-                                k = (memory[i - 1]) * (memory[i + 1]);
+                                k = parseFloat((memory[i - 1]) * parseFloat((memory[i + 1])));
                                 break;
                             }
                             else {
@@ -108,7 +134,7 @@ class Calculator extends React.Component {
                     case "/":
                         while (true) {
                             if (memory[i - 1] !== undefined) {
-                                k = (memory[i - 1]) / (memory[i + 1]);
+                                k = parseFloat((memory[i - 1])) / parseFloat((memory[i + 1]));
                                 break;
                             }
                             else {
@@ -121,24 +147,12 @@ class Calculator extends React.Component {
                         this.updateDisplay();
                         i = 0;
                         break;
-                    case ".":
-                        while (true) {
-                            let i = 0;
-                            if (i + 1 == '.') {
-                                memory.splice(i, 1);
-                            }
-                            else {
-                                break;
-                            }
-                        }
-                        break;
                     default:
-
                         break;
                     }
                 }
                 else if (isNaN(memory[i]) && isNaN(memory[i + 1])) {
-                    if (!isNaN(memory[i + 2] && memory[i + 1] == '-')) {
+                    if (!isNaN(memory[i + 2]) && memory[i + 1] == '-') {
                         memory[i + 2] = -Math.abs(memory[i + 2]);
                         memory.splice(i + 1, 1);
                     }
