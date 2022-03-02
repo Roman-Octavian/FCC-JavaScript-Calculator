@@ -339,6 +339,8 @@ class Calculator extends React.Component {
                         i = 0;
                         break;
                     default:
+                        this.clear();
+                        this.updateDisplay();
                         break;
                     }
                 }
